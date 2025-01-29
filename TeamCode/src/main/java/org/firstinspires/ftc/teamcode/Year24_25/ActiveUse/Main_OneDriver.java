@@ -32,6 +32,7 @@ public class Main_OneDriver extends OpMode{
 
 	// vars for drive style toggle
 		private boolean driveGlobally;
+		private boolean useSpecimens;
 		
 	//Final vars for autonomous driving in init (calculated in Auto_StarLeft) -CS
 		final double COUNTS_PER_CM = 1.17742528;
@@ -72,8 +73,11 @@ public class Main_OneDriver extends OpMode{
 			double w = gamepad1.right_stick_x * currRotSpeed;			//w = rotation velocity
 
 		// Check for change of drive style - CC
+			/*if (gamepad1.start && !prevPad.start)
+				driveGlobally = !driveGlobally;*/
+
 			if (gamepad1.start && !prevPad.start)
-				driveGlobally = !driveGlobally;
+				useSpecimens = !useSpecimens;
 
 		// Check for reset of angle - CC
 			if (gamepad1.back)
@@ -98,7 +102,7 @@ public class Main_OneDriver extends OpMode{
 			int newTarget = (int)(MM.getLiftTargetPosition() + lift*25);
 			
 			if (newTarget < IV.MAX_HEIGHT && newTarget > IV.MIN_HEIGHT){
-				 MM.sendLiftTo(newTarget);
+				 MM.sendLiftTo(newTarget, currLiftSpeed);
 			}
 
 		//Get input for sElbow0 and sClaw1 -CS
@@ -119,26 +123,40 @@ public class Main_OneDriver extends OpMode{
 			if(gamepad1.a && !prevPad.a){		
 				// toggle between home position and slightly above submersible lip -CC
 				if (MM.getLiftTargetPosition() == IV.BOTTOM_PRESET)
-					MM.sendLiftTo(IV.VIPER_HOME, IV.altLiftSpeed);
+					MM.sendLiftTo(IV.VIPER_HOME, currLiftSpeed);
 				
 				else
-					MM.sendLiftTo(IV.BOTTOM_PRESET, IV.altLiftSpeed);
+					MM.sendLiftTo(IV.BOTTOM_PRESET, currLiftSpeed);
 			}
 			
 			
-			if(gamepad1.b && !prevPad.b){								//used to be VIPER_HOME
-				if (MM.getLiftTargetPosition() == IV.HANG_PRESET)
-					MM.sendLiftTo(IV.VIPER_HOME, IV.altLiftSpeed);
-				
-				else
-					MM.sendLiftTo(IV.HANG_PRESET, IV.altLiftSpeed);
+			if(gamepad1.b && !prevPad.b){							//used to be VIPER_HOME
+
+				if (useSpecimens){
+					MM.sendLiftTo(IV.MID_PRESET, currLiftSpeed);
+				}else {
+					if (MM.getLiftTargetPosition() == IV.HANG_PRESET)
+						MM.sendLiftTo(IV.VIPER_HOME, currLiftSpeed);
+
+					else
+						MM.sendLiftTo(IV.HANG_PRESET, currLiftSpeed);
+				}
 			}
 			
 			if(gamepad1.y)
-				MM.sendLiftTo(IV.TOP_PRESET);
+				if (useSpecimens){
+					MM.sendLiftTo(IV.SPECIMEN_PRESET, currLiftSpeed);
+				}else {
+					MM.sendLiftTo(IV.TOP_PRESET, currLiftSpeed);
+				}
 			
 			if(gamepad1.x)
-				MM.sendLiftTo(IV.MID_PRESET);
+				if (useSpecimens){
+					MM.sendLiftTo(770, currLiftSpeed);
+				}
+				else{
+					MM.sendLiftTo(IV.MID_PRESET, currLiftSpeed);
+				}
 
 
 			if(MM.getLiftTargetPosition() != IV.VIPER_HOME || MM.getLiftCurrentPosition() > IV.VIPER_HOME)
@@ -148,6 +166,7 @@ public class Main_OneDriver extends OpMode{
 
 		//Return telemtry data for motor, lift, and compass values
 			MM.telemetry(vx,vy,w,driveGlobally);
+			telemetry.addData("Strategy", useSpecimens ? "Specimens" : "Samples");
 					  
 		// set current gamepad as prev state for next iteration
 			prevPad.copy(gamepad1);
