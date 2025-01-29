@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Year24_25.ActiveUse;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -11,16 +11,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import java.text.DecimalFormat;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.vision.opencv.ColorRange;
-import org.firstinspires.ftc.vision.opencv.ImageRegion;
 
 // manually input, do not delete pls - CC
-import java.util.List;
-import java.util.ArrayList;
-import org.opencv.core.Point;
-import org.opencv.core.RotatedRect;
-import android.util.Size;
+
 
 	/* All driving controls on gamepad1
 	   All lift, claw, and elbow controls on gamepad2 -CS	*/
