@@ -11,10 +11,15 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
-@Autonomous(name="Main Auto - Start Left RR")
-public class MainAuto_StartLeft_RR extends LinearOpMode {
+@Autonomous(name="Blue Alliance - Left Side Autonomous")
+public class BlueAuto_Left extends LinearOpMode {
     AutoMethods am;
 
+    /*
+    These next few InstantFunction classes are used as a way for us to
+    pass methods from AutoMethods into the Trajectory/RR Path.
+    For now, they are mainly used to move the lift and servos around mid path.
+     */
     private class OpenClaw implements InstantFunction{
         @Override
         public void run(){
@@ -65,19 +70,26 @@ public class MainAuto_StartLeft_RR extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        am = new AutoMethods(hardwareMap, telemetry, this);
-        am.initLiftMotors();
-        am.initServos();
+        // setup AutoMethods to maneuver lift, elbow, and claw
+            am = new AutoMethods(hardwareMap, telemetry, this);
+            am.initLiftMotors();
+            am.initServos();
 
-        Pose2d beginPose = new Pose2d(9, 63, Math.toRadians(-90));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
-        drive.updatePoseEstimate();
-        telemetry.addData("Current Pose: ", drive.localizer.getPose());
+        // set initial position on field
+            Pose2d beginPose = new Pose2d(9, 63, Math.toRadians(-90));
 
-        am.closeClaw();
+        // setup RoadRunner pinpoint driving to make paths
+            MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+
+        // don't know if this is needed, but updates pose in MecanumDrive
+            drive.updatePoseEstimate();
+
+        // Close claw before startup to hold Specimen
+            am.closeClaw();
 
         waitForStart();
 
+        // The entire creation of the left path on Blue Side
         Action leftPathBlue = drive.actionBuilder(beginPose)
                 // set up lift to rise to upper sub rung
                     .stopAndAdd(new RaiseElbow())
