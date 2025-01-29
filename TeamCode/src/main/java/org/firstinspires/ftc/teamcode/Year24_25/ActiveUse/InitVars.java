@@ -13,6 +13,7 @@ public class InitVars {
 		public static final int BOTTOM_PRESET = 300;
 		public static final int HANG_PRESET = 1900;
 		public static final int VIPER_HOME = 10;
+		public static final int SPECIMEN_PRESET = 1360;
 		
 	//Preset positions for elbow and claw servos -CS
 		public static final double ELBOW_AUTO_START = 0.8;
@@ -24,7 +25,7 @@ public class InitVars {
 	// create variables for camera size
 		public static final int CAM_W = 320;
 		public static final int CAM_H = 240;
-		public static final Point GRAB_POINT = new Point(CAM_W/2, CAM_H/2);
+		public static final Point GRAB_POINT = new Point(CAM_W/2.0, CAM_H/2.0);
 		
 	//Initial speed of lift and drive motors -CS
 		public static double liftSpeed = .85;
