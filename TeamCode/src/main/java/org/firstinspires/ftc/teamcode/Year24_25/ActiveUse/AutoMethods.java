@@ -167,10 +167,12 @@ public class AutoMethods extends OpMethods{
 				/*telemetry.addData("Moving Lift to", target);
 				telemetry.addData("Current Position", lift[0].getCurrentPosition());
 				telemetry.update();*/
-				
-				posTelem.setValue(getCurrentPositionTelem());
-				targetTelem.setValue(getTargetPositionTelem());
-				telemetry.update();
+
+				if (motors[0] != null) {
+					posTelem.setValue(getCurrentPositionTelem());
+					targetTelem.setValue(getTargetPositionTelem());
+					telemetry.update();
+				}
 				
 				op.idle();
 			}
