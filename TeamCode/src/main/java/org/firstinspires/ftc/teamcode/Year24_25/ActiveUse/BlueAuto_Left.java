@@ -57,7 +57,7 @@ public class BlueAuto_Left extends LinearOpMode {
 
         @Override
         public void run(){
-            am.sendLiftTo(targetPos);
+            am.sendLiftTo(targetPos, InitVars.altLiftSpeed);
         }
     }
 
@@ -96,7 +96,7 @@ public class BlueAuto_Left extends LinearOpMode {
                     .stopAndAdd(new SendLiftTo(1470))
 
                 // move to be in front of sub and wait for lift to raise
-                    .splineTo(new Vector2d(9, 43), Math.toRadians(-90))
+                    .splineTo(new Vector2d(9, 43.25), Math.toRadians(-90)) // 9, 42
                     .stopAndAdd(new WaitForLift())
 
                 // place specimen on rung
@@ -124,19 +124,19 @@ public class BlueAuto_Left extends LinearOpMode {
                     .stopAndAdd(new SendLiftTo(InitVars.TOP_PRESET))
 
                 // turn and face basket and wait for lift to rise
-                    .splineToLinearHeading(new Pose2d(48, 48, Math.toRadians(45)), Math.toRadians(-135))
+                    .splineToLinearHeading(new Pose2d(49, 49, Math.toRadians(45)), Math.toRadians(-135)) //49, 49, 45deg
                     .stopAndAdd(new WaitForLift())
 
                 // drop sample and lower lift
                     .stopAndAdd(new OpenClaw())
-                    .splineToConstantHeading(new Vector2d(46, 46), Math.toRadians(45))
+                    .splineToConstantHeading(new Vector2d(45, 45), Math.toRadians(45)) //46, 46
                     .stopAndAdd(new SendLiftTo(InitVars.BOTTOM_PRESET))
                     .stopAndAdd(new WaitForLift())
 
                 // get in position to grab middle sample
                     .splineToLinearHeading(new Pose2d(58, 52, Math.toRadians(-90)), Math.toRadians(-135))
                     .stopAndAdd(new LowerElbow())
-                    .splineToConstantHeading(new Vector2d(58, 47), Math.toRadians(90))
+                    .splineToConstantHeading(new Vector2d(58, 48), Math.toRadians(90))
 
                 // move lift down, close claw on sample, and wait for servo to be done
                     .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
@@ -149,13 +149,14 @@ public class BlueAuto_Left extends LinearOpMode {
                     .stopAndAdd(new SendLiftTo(InitVars.TOP_PRESET))
 
                 // turn and face basket and wait for lift to rise
-                    .splineToLinearHeading(new Pose2d(49, 49, Math.toRadians(45)), Math.toRadians(-135))
+                    .splineToLinearHeading(new Pose2d(49, 49, Math.toRadians(45)), Math.toRadians(-135)) //49, 49
                     .stopAndAdd(new WaitForLift())
 
                 // drop sample and lower lift
                     .stopAndAdd(new OpenClaw())
-                    .splineToConstantHeading(new Vector2d(46, 46), Math.toRadians(45))
+                    .splineToConstantHeading(new Vector2d(45, 45), Math.toRadians(45))
                     .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
+                    .stopAndAdd(new WaitForLift())
 
                 // drive to park in ascent zone
                     .splineToLinearHeading(new Pose2d(45, 18, 0), 0)

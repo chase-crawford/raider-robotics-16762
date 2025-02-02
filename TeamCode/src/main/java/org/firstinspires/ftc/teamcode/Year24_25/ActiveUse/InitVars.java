@@ -29,7 +29,7 @@ public class InitVars {
 		
 	//Initial speed of lift and drive motors -CS
 		public static double liftSpeed = .85;
-		public static double altLiftSpeed = 0.95;
+		public static double altLiftSpeed = 1.00;
 		
 		public static double driveSpeed = .7;			//typically .8
 		public static double fineDriveSpeed = .45;		//typically .25
