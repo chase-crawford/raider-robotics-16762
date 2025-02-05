@@ -122,7 +122,7 @@ public class OpMethods {
 	
 	/* returns the average of the lift current positions as an integer */
 		public int getLiftCurrentPosition(){
-			return (int)((lift[1].getCurrentPosition()+lift[0].getCurrentPosition())/2);
+			return (int)((lift[1].getCurrentPosition()+lift[0].getCurrentPosition())/2.0);
 		}
 		
 	/* returns the average of the lift current positions as an integer */
