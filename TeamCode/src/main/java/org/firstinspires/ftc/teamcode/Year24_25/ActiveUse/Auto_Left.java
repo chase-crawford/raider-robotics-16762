@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Year24_25.ActiveUse;
 
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.InstantFunction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -12,8 +11,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 @Autonomous(name="Blue Alliance - Left Side Autonomous")
-public class BlueAuto_Left extends LinearOpMode {
+public class Auto_Left extends LinearOpMode {
     AutoMethods am;
+    private double elbowWait = 0.75;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -56,8 +56,9 @@ public class BlueAuto_Left extends LinearOpMode {
                     .lineToY(48)
 
                 // get in position to grab rightmost sample
-                    .splineToConstantHeading(new Vector2d(48, 52), Math.toRadians(90)) // y was 52
+                    .splineToConstantHeading(new Vector2d(48, 52.5), Math.toRadians(90)) // y was 52
                     .stopAndAdd(am.new LowerElbow())
+                    .waitSeconds(elbowWait)
                     .splineToConstantHeading(new Vector2d(48, 46), Math.toRadians(90)) // y was 48
 
                 // move lift down, close claw on sample, and wait for servo to be done
@@ -68,21 +69,23 @@ public class BlueAuto_Left extends LinearOpMode {
 
                 // setup arm for basket-drop
                     .stopAndAdd(am.new RaiseElbow())
+                    .waitSeconds(elbowWait)
 
                 // turn and face basket and wait for lift to rise
-                    .splineToLinearHeading(new Pose2d(49, 49, Math.toRadians(45)), Math.toRadians(-135)) //49, 49, 45deg
+                    .splineToLinearHeading(new Pose2d(49, 49, Math.toRadians(49)), Math.toRadians(-135)) //49, 49, 45deg
                     .stopAndAdd(am.new SendLiftTo(InitVars.TOP_PRESET))
                     .stopAndAdd(am.new WaitForLift())
 
                 // drop sample and lower lift
                     .stopAndAdd(am.new OpenClaw())
-                    .splineToConstantHeading(new Vector2d(45, 45), Math.toRadians(45)) //46, 46
                     .stopAndAdd(am.new SendLiftTo(InitVars.BOTTOM_PRESET))
                     .stopAndAdd(am.new WaitForLift())
+                    //.splineToConstantHeading(new Vector2d(45, 45), Math.toRadians(47)) //46, 46
 
                 // get in position to grab middle sample
-                    .splineToLinearHeading(new Pose2d(58, 52, Math.toRadians(-90)), Math.toRadians(-135)) // y was 52
+                    .splineToLinearHeading(new Pose2d(58, 52.5, Math.toRadians(-90)), Math.toRadians(-135)) // y was 52
                     .stopAndAdd(am.new LowerElbow())
+                    .waitSeconds(elbowWait)
                     .splineToConstantHeading(new Vector2d(58, 46), Math.toRadians(90))
 
                 // move lift down, close claw on sample, and wait for servo to be done
@@ -93,18 +96,19 @@ public class BlueAuto_Left extends LinearOpMode {
 
                 // setup lift+arm for basket-drop
                     .stopAndAdd(am.new RaiseElbow())
+                    .waitSeconds(elbowWait)
 
 
                 // turn and face basket and wait for lift to rise
-                    .splineToLinearHeading(new Pose2d(49, 49, Math.toRadians(45)), Math.toRadians(-135)) //49, 49
+                    .splineToLinearHeading(new Pose2d(49, 49, Math.toRadians(47)), Math.toRadians(-135)) //49, 49
                     .stopAndAdd(am.new SendLiftTo(InitVars.TOP_PRESET))
                     .stopAndAdd(am.new WaitForLift())
 
                 // drop sample and lower lift
                     .stopAndAdd(am.new OpenClaw())
-                    .splineToConstantHeading(new Vector2d(45, 45), Math.toRadians(45))
                     .stopAndAdd(am.new SendLiftTo(InitVars.MID_PRESET))
                     .stopAndAdd(am.new WaitForLift())
+                    //.splineToConstantHeading(new Vector2d(45, 45), Math.toRadians(47))
 
                 // drive to park in ascent zone
                     .splineToLinearHeading(new Pose2d(45, 18, 0), 0)
