@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class ManualMethods extends OpMethods{
 	
 	private boolean clawClosed, elbowDown;
+	private InitVars IV = new InitVars();
 	
 	public ManualMethods(HardwareMap hardwareMap, Telemetry telemetry){
 		super(hardwareMap, telemetry);
@@ -59,7 +60,29 @@ public class ManualMethods extends OpMethods{
 				elbowDown = true;
 			}
 		}
-	
+
+	/*Allows you to toggle elbow between three different positions
+		@return void
+	 */
+		public void toggleElbowSpecimen() {
+			int n = 0;
+
+			if(n == 0){
+				sElbow0.setPosition(IV.ELBOW_GRAB_WALL);
+				n++;
+			}
+
+			else if(n == 1){
+				sElbow0.setPosition(IV.ELBOW_UP);
+				n++;
+			}
+
+			else{
+				sElbow0.setPosition(IV.ELBOW_GRAB);
+				n = 0;
+			}
+		}
+
 	public void driveGlobal(double vx, double vy, double w){
 		// testing with compass - CC
 			double rotation = compass.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);

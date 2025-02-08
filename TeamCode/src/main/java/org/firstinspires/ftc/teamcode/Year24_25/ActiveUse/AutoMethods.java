@@ -194,9 +194,9 @@ public class AutoMethods extends OpMethods{
 		}
 
 	// Raise elbow to 45 degrees(?) rotation to grab from wall
-	public void raiseElbowToWall(){
-		sElbow0.setPosition(InitVars.ELBOW_GRAB_WALL);
-	}
+		public void raiseElbowToWall(){
+			sElbow0.setPosition(InitVars.ELBOW_GRAB_WALL);
+		}
 
 	// raises elbow to 90 degree rotation (arm faces upwards)
 		public void lowerElbow(){
