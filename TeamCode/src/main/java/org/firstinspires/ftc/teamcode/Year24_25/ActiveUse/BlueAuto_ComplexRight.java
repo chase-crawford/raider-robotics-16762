@@ -37,6 +37,11 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
         }
     }
 
+    private class SpecimenRaiseElbow implements InstantFunction{
+        @Override
+        public void run(){am.raiseElbowToWall();}
+    }
+
     private class LowerElbow implements InstantFunction{
         @Override
         public void run(){
@@ -67,58 +72,60 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // setup AutoMethods to maneuver lift, elbow, and claw
-            am = new AutoMethods(hardwareMap, telemetry, this);
-            am.initLiftMotors();
-            am.initServos();
+        am = new AutoMethods(hardwareMap, telemetry, this);
+        am.initLiftMotors();
+        am.initServos();
 
         // set initial position on field
-            Pose2d beginPose = new Pose2d(9, 63, Math.toRadians(-90));
+        Pose2d beginPose = new Pose2d(9, 63, Math.toRadians(-90));
 
         // setup RoadRunner pinpoint driving to make paths
-            MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+        MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
 
         // don't know if this is needed, but updates pose in MecanumDrive
-            drive.updatePoseEstimate();
+        drive.updatePoseEstimate();
 
         // Close claw before startup to hold Specimen
-            am.closeClaw();
+        am.closeClaw();
 
         waitForStart();
 
         // The entire creation of the complex right path on Blue Side
-            Action complexRightPathBlue = drive.actionBuilder(beginPose)
+        Action complexRightPathBlue = drive.actionBuilder(beginPose)
                 // set up lift to rise to upper sub rung
-                    .stopAndAdd(new RaiseElbow())
-                    .stopAndAdd(new SendLiftTo(1470))
+                .stopAndAdd(new RaiseElbow())
+                .stopAndAdd(new SendLiftTo(1470))
 
                 // move to be in front of sub and wait for lift to raise
-                    .splineTo(new Vector2d(9, 43), Math.toRadians(-90))
-                    .stopAndAdd(new WaitForLift())
+                .lineToY(41)
+                .stopAndAdd(new WaitForLift())
 
                 // place specimen on rung
-                    .stopAndAdd(new SendLiftTo(770))
-                    .stopAndAdd(new WaitForLift())
-                    .stopAndAdd(new OpenClaw())
+                .stopAndAdd(new SendLiftTo(770))
+                .stopAndAdd(new WaitForLift())
+                .stopAndAdd(new OpenClaw())
 
                 // move lift down and back up
-                    .stopAndAdd(new SendLiftTo(InitVars.SPECIMEN_PRESET))
-                    .lineToY(48)
+                .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+                .lineToY(48)
+                .waitSeconds(1)
 
                 //Grab first specimen from wall
-                    .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(90)), Math.toRadians(45))
-                    .stopAndAdd(new RaiseElbow())
-                    .lineToX(-48)
-//                    .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+                .turnTo(Math.toRadians(90))
+                .lineToX(-48)
+//                    .stopAndAdd(new SpecimenRaiseElbow())
+                .waitSeconds(ELBOW_WAIT)
+                .lineToY(51)
 //                    .stopAndAdd(new CloseClaw())
-                    .waitSeconds(0.5)
+                .waitSeconds(0.5)
 
                 //Move back to rung
 //                    .stopAndAdd(new RaiseElbow())
+                .waitSeconds(ELBOW_WAIT)
+                .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(-90)), Math.toRadians(45))
 //                    .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
-                    .waitSeconds(ELBOW_WAIT)
-                    .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(-90)), 45)
-                    .splineToConstantHeading(new Vector2d(-7, 43.25), Math.toRadians(-45))
-                    .waitSeconds(1)
+                .splineToConstantHeading(new Vector2d(-6, 41), Math.toRadians(-45))
+                .waitSeconds(1)
 
                 //Hang specimen
 //                    .stopAndAdd(new WaitForLift())
@@ -126,36 +133,36 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
 //                    .stopAndAdd(new WaitForLift())
 //                    .stopAndAdd(new OpenClaw())
 
-                //Move lift down and back up
-//                    .stopAndAdd(new SendLiftTo(InitVars.SPECIMEN_PRESET))
-                    .lineToY(48)
-                    .waitSeconds(1)
+                // move lift down and back up
+                .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+                .lineToY(48)
+                .waitSeconds(1)
 
-                //Grab second specimen from the wall
-                    .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(90)), Math.toRadians(45))
-//                    .stopAndAdd(new LowerElbow())
-                    .lineToX(-48)
-//                    .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+                //Grab first specimen from wall
+                .turnTo(Math.toRadians(90))
+                .lineToX(-48)
+//                    .stopAndAdd(new SpecimenRaiseElbow())
+                .waitSeconds(ELBOW_WAIT)
+                .lineToY(51)
 //                    .stopAndAdd(new CloseClaw())
-//                    .waitSeconds(0.5)
-                    .waitSeconds(1)
+                .waitSeconds(0.5)
 
                 //Move back to rung
 //                    .stopAndAdd(new RaiseElbow())
+                .waitSeconds(ELBOW_WAIT)
+                .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(-90)), Math.toRadians(45))
 //                    .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
-                    .splineToLinearHeading(new Pose2d(-9, 61, Math.toRadians(-90)), 45)
-                    .splineToConstantHeading(new Vector2d(-6, 43.25), Math.toRadians(-45))
-                    .waitSeconds(1)
+                .splineToConstantHeading(new Vector2d(-3, 41), Math.toRadians(-45))
+                .waitSeconds(1)
 
                 //Hang specimen
 //                    .stopAndAdd(new WaitForLift())
 //                    .stopAndAdd(new SendLiftTo(770))
 //                    .stopAndAdd(new WaitForLift())
 //                    .stopAndAdd(new OpenClaw())
-//                    .stopAndAdd(new SendLiftTo(InitVars.BOTTOM_PRESET))
 
                 //End auto path and build
-                    .build();
+                .build();
 
         Actions.runBlocking(new SequentialAction(complexRightPathBlue));
     }
