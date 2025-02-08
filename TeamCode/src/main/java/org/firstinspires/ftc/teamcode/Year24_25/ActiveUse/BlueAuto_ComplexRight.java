@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 @Autonomous(name="Blue Alliance - Complex Right Side Autonomous")
 public class BlueAuto_ComplexRight extends LinearOpMode {
     AutoMethods am;
+    final double ELBOW_WAIT = .75;
 
     private class OpenClaw implements InstantFunction{
         @Override
@@ -100,56 +101,61 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                     .stopAndAdd(new OpenClaw())
 
                 // move lift down and back up
-                    .stopAndAdd(new SendLiftTo(InitVars.BOTTOM_PRESET))
+                    .stopAndAdd(new SendLiftTo(InitVars.SPECIMEN_PRESET))
                     .lineToY(48)
 
-                // grab first specimen from the ground
-                    .splineToLinearHeading(new Pose2d(-9, 61, Math.toRadians(180)), Math.toRadians(45))
-                    .stopAndAdd(am.new LowerElbow())
-                    .lineToX(-25)
-                    //.stopAndAdd(am.new SendLiftTo(InitVars.VIPER_HOME))
-                    .stopAndAdd(am.new CloseClaw())
+                //Grab first specimen from wall
+                    .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(90)), Math.toRadians(45))
+                    .stopAndAdd(new RaiseElbow())
+                    .lineToX(-48)
+//                    .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+//                    .stopAndAdd(new CloseClaw())
                     .waitSeconds(0.5)
 
-                // move back to rung
-                    .stopAndAdd(am.new RaiseElbow())
-                    .stopAndAdd(am.new SendLiftTo(InitVars.MID_PRESET))
-                    .splineToLinearHeading(new Pose2d(-9, 61, Math.toRadians(-90)), 45)
+                //Move back to rung
+//                    .stopAndAdd(new RaiseElbow())
+//                    .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
+                    .waitSeconds(ELBOW_WAIT)
+                    .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(-90)), 45)
                     .splineToConstantHeading(new Vector2d(-7, 43.25), Math.toRadians(-45))
+                    .waitSeconds(1)
 
-                // hang specimen
-                    .stopAndAdd(am.new WaitForLift())
-                    .stopAndAdd(am.new SendLiftTo(770))
-                    .stopAndAdd(am.new WaitForLift())
-                    .stopAndAdd(am.new OpenClaw())
+                //Hang specimen
+//                    .stopAndAdd(new WaitForLift())
+//                    .stopAndAdd(new SendLiftTo(770))
+//                    .stopAndAdd(new WaitForLift())
+//                    .stopAndAdd(new OpenClaw())
 
-                // move lift down and back up
-                    .stopAndAdd(am.new SendLiftTo(InitVars.BOTTOM_PRESET))
+                //Move lift down and back up
+//                    .stopAndAdd(new SendLiftTo(InitVars.SPECIMEN_PRESET))
                     .lineToY(48)
+                    .waitSeconds(1)
 
-                // grab first specimen
-                    .splineToLinearHeading(new Pose2d(-9, 61, Math.toRadians(180)), Math.toRadians(-45))
-                    .stopAndAdd(am.new LowerElbow())
-                    .lineToX(-25)
-                    //.stopAndAdd(am.new SendLiftTo(InitVars.VIPER_HOME))
-                    .stopAndAdd(am.new CloseClaw())
-                    .waitSeconds(0.5)
+                //Grab second specimen from the wall
+                    .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(90)), Math.toRadians(45))
+//                    .stopAndAdd(new LowerElbow())
+                    .lineToX(-48)
+//                    .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+//                    .stopAndAdd(new CloseClaw())
+//                    .waitSeconds(0.5)
+                    .waitSeconds(1)
 
-                // move back to rung
-                    .stopAndAdd(am.new RaiseElbow())
-                    .stopAndAdd(am.new SendLiftTo(InitVars.MID_PRESET))
+                //Move back to rung
+//                    .stopAndAdd(new RaiseElbow())
+//                    .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
                     .splineToLinearHeading(new Pose2d(-9, 61, Math.toRadians(-90)), 45)
                     .splineToConstantHeading(new Vector2d(-6, 43.25), Math.toRadians(-45))
+                    .waitSeconds(1)
 
-                // hang specimen
-                    .stopAndAdd(am.new WaitForLift())
-                    .stopAndAdd(am.new SendLiftTo(770))
-                    .stopAndAdd(am.new WaitForLift())
-                    .stopAndAdd(am.new OpenClaw())
-                    .stopAndAdd(am.new SendLiftTo(InitVars.BOTTOM_PRESET)) */
+                //Hang specimen
+//                    .stopAndAdd(new WaitForLift())
+//                    .stopAndAdd(new SendLiftTo(770))
+//                    .stopAndAdd(new WaitForLift())
+//                    .stopAndAdd(new OpenClaw())
+//                    .stopAndAdd(new SendLiftTo(InitVars.BOTTOM_PRESET))
 
                 //End auto path and build
-                .build();
+                    .build();
 
         Actions.runBlocking(new SequentialAction(complexRightPathBlue));
     }

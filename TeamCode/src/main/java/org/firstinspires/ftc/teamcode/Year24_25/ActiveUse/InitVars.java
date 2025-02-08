@@ -19,6 +19,8 @@ public class InitVars {
 		public static final double ELBOW_AUTO_START = 0.8;
 		public static final double ELBOW_UP = 0.5;
 		public static final double ELBOW_GRAB = 0.01;
+
+		public static final double ELBOW_GRAB_WALL = 0.3;
 		public static final double CLAW_OPEN = 0.0;
 		public static final double CLAW_CLOSE = 0.3;
 		

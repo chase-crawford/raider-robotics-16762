@@ -8,6 +8,8 @@ import org.rowlandhall.meepmeep.roadrunner.DefaultBotBuilder;
 import org.rowlandhall.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class MeepMeepTesting {
+    final static double ELBOW_WAIT = 0.75;
+
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(800);
 
@@ -89,18 +91,72 @@ public class MeepMeepTesting {
             //CADY PATH
             // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0))
-                        .forward(30)
-                        .turn(Math.toRadians(90))
-                        .forward(30)
-                        .turn(Math.toRadians(90))
-                        .forward(30)
-                        .turn(Math.toRadians(90))
-                        .forward(30)
-                        .turn(Math.toRadians(90))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-9, 63, Math.toRadians(-90)))
+                        // set up lift to rise to upper sub rung
+                        //.stopAndAdd(new RaiseElbow())
+                        //.stopAndAdd(new SendLiftTo(1470))
 
+                        // move to be in front of sub and wait for lift to raise
+                        .splineTo(new Vector2d(-9, 43), Math.toRadians(-90))
+                        //.stopAndAdd(new WaitForLift())
 
-            .build());
+                        // place specimen on rung
+                        //.stopAndAdd(new SendLiftTo(770))
+                        //.stopAndAdd(new WaitForLift())
+                        //.stopAndAdd(new OpenClaw())
+
+                        // move lift down and back up
+                        //.stopAndAdd(new SendLiftTo(InitVars.SPECIMEN_PRESET))
+                        .lineTo(new Vector2d(-9,48))
+
+                        // grab first specimen from the wall
+                        .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(90)), Math.toRadians(45))
+                        //.stopAndAdd(new LowerElbow())
+                        .lineTo(new Vector2d(-48, 51))
+                        ////.stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+                        //.stopAndAdd(new CloseClaw())
+                        .waitSeconds(0.5)
+
+                        // move back to rung
+                        //.stopAndAdd(new RaiseElbow())
+                        //.stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
+                        .waitSeconds(ELBOW_WAIT)
+                        .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(-90)), 45)
+                        .splineToConstantHeading(new Vector2d(-6, 43.25), Math.toRadians(-45))
+
+                        // hang specimen
+                        //.stopAndAdd(new WaitForLift())
+                        //.stopAndAdd(new SendLiftTo(770))
+                        //.stopAndAdd(new WaitForLift())
+                        //.stopAndAdd(new OpenClaw())
+
+                        // move lift down and back up
+                        //.stopAndAdd(new SendLiftTo(InitVars.SPECIMEN_PRESET))
+                        .lineTo(new Vector2d(-9,48))
+
+                        // grab first specimen from the wall
+                        .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(90)), Math.toRadians(45))
+                        //.stopAndAdd(new LowerElbow())
+                        .lineTo(new Vector2d(-48, 51))
+                        ////.stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+                        //.stopAndAdd(new CloseClaw())
+                        .waitSeconds(0.5)
+
+                        // move back to rung
+                        //.stopAndAdd(new RaiseElbow())
+                        //.stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
+                        .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(-90)), 45)
+                        .splineToConstantHeading(new Vector2d(-3, 43.25), Math.toRadians(-45))
+
+                        // hang specimen
+                        //.stopAndAdd(new WaitForLift())
+                        //.stopAndAdd(new SendLiftTo(770))
+                        //.stopAndAdd(new WaitForLift())
+                        //.stopAndAdd(new OpenClaw())
+                        //.stopAndAdd(new SendLiftTo(InitVars.BOTTOM_PRESET))
+
+                        //End auto path and build
+                        .build());
 
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTOTHEDEEP_JUICE_DARK)
