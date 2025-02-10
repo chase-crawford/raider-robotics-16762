@@ -111,36 +111,43 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                     .waitSeconds(1)
 
                 //Move infront of first sample to push into obsv. zone
-                    .splineToConstantHeading(new Vector2d(-28, 42), Math.toRadians(90))
+                    .lineToY(-42)
+                    .lineToX(-28)
                     .splineToConstantHeading(new Vector2d(-45, 10), Math.PI)
-                    .splineToConstantHeading(new Vector2d(-46,10), Math.toRadians(90))
+                    .lineToX(-46)
+                    .lineToY(10)
+                    .waitSeconds(0.5)
 
                 //Push sample into obsv. zone
-                    .splineToConstantHeading(new Vector2d(-46,60), Math.toRadians(90))
+                    .lineToX(-46)
+                    .lineToY(60)
 
                 //Move infront of the second sample to push into obsv. zone
-                    .splineToConstantHeading(new Vector2d(-46,10), Math.toRadians(90))
-                    .splineToConstantHeading(new Vector2d(-58,10), Math.toRadians(90))
-                    .splineToConstantHeading(new Vector2d(-58,60), Math.toRadians(90))
+                    .lineToY(10)
+                    .lineToX(-58)
+                    .lineToY(60)
                     .waitSeconds(0.5)
 
                 //Spin to grab specimen off wall
-                    .splineToConstantHeading(new Vector2d(-58,58), Math.toRadians(90))
+                    .lineToY(58)
                     .turn(Math.toRadians(180))
-                    .splineToConstantHeading(new Vector2d(-48,60), Math.toRadians(90))
+                    .lineToX(-48)
+                    .lineToY(60)
                     .waitSeconds(1)
 
                 //Move back to rung
 //                  .stopAndAdd(new SpecimenRaiseElbow())
                     .waitSeconds(ELBOW_WAIT)
-                    .splineToConstantHeading(new Vector2d(-48,48), Math.toRadians(90))
+                    .lineToY(48)
 //                  .stopAndAdd(new CloseClaw())
                     .waitSeconds(0.5)
 //                  .stopAndAdd(new RaiseElbow())
                     .waitSeconds(ELBOW_WAIT)
-                    .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(-90)), Math.toRadians(45))
+                    .lineToX(-9)
+                    .lineToY(51)
 //                   .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
-                    .splineToConstantHeading(new Vector2d(-6, 41), Math.toRadians(-45))
+                    .lineToX(-6)
+                    .lineToY(41)
                     .waitSeconds(1)
 
                 //Hang specimen
@@ -151,24 +158,25 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
 
                 // move lift down and back up
 //                  .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
-                    .splineToConstantHeading(new Vector2d(-6, 48), Math.toRadians(-45))
+                    .lineToY(48)
                     .waitSeconds(1)
 
                 //Grab first specimen from wall
                     .turn(Math.toRadians(180))
-                    .splineToConstantHeading(new Vector2d(-48, 48), Math.toRadians(-45))
+                    .lineToX(-48)
 //                  .stopAndAdd(new SpecimenRaiseElbow())
                     .waitSeconds(ELBOW_WAIT)
-                    .splineToConstantHeading(new Vector2d(-48, 51), Math.toRadians(-45))
+                    .lineToY(51)
 //                  .stopAndAdd(new CloseClaw())
                     .waitSeconds(0.5)
 
                 //Move back to rung
 //                  .stopAndAdd(new RaiseElbow())
                     .waitSeconds(ELBOW_WAIT)
-                    .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(-90)), Math.toRadians(45))
+                    .lineToX(-9)
 //                  .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
-                    .splineToConstantHeading(new Vector2d(-3, 41), Math.toRadians(-45))
+                    .lineToX(-3)
+                    .lineToY(41)
                     .waitSeconds(1)
 
                 //Hang specimen
@@ -178,9 +186,11 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
 //                    .stopAndAdd(new OpenClaw())
 
                 //End at lv 1 ascent
-                    .splineToConstantHeading(new Vector2d(-46, 43), Math.toRadians(-45))
+                    .lineToX(-46)
+                    .lineToY(43)
                     .splineToLinearHeading(new Pose2d(-34, 5, Math.toRadians(0)), Math.PI)
-                    .splineToConstantHeading(new Vector2d(-25, 12), Math.toRadians(-45))
+                    .lineToX(-25)
+                    .lineToY(12)
 
                 //End auto path and build
                     .build();
