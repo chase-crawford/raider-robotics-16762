@@ -118,7 +118,7 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                     .lineToY(10)
                     .waitSeconds(0.5)
 
-                //Push sample into obsv. zone
+                /*Push sample into obsv. zone
                     .lineToX(-46)
                     .lineToY(60)
 
@@ -192,7 +192,7 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                     .lineToX(-25)
                     .lineToY(12)
 
-                //End auto path and build
+                //End auto path and build*/
                     .build();
 
         Actions.runBlocking(new SequentialAction(complexRightPathBlue));
