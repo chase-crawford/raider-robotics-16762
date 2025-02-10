@@ -131,23 +131,23 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                     .waitSeconds(1)
 
                 //Move back to rung
-                    //.stopAndAdd(new SpecimenRaiseElbow())
+//                  .stopAndAdd(new SpecimenRaiseElbow())
                     .waitSeconds(ELBOW_WAIT)
                     .splineToConstantHeading(new Vector2d(-48,48), Math.toRadians(90))
-                    //.stopAndAdd(new CloseClaw())
+//                  .stopAndAdd(new CloseClaw())
                     .waitSeconds(0.5)
-                    //.stopAndAdd(new RaiseElbow())
+//                  .stopAndAdd(new RaiseElbow())
                     .waitSeconds(ELBOW_WAIT)
                     .splineToLinearHeading(new Pose2d(-9, 51, Math.toRadians(-90)), Math.toRadians(45))
-                    //.stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
+//                   .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
                     .splineToConstantHeading(new Vector2d(-6, 41), Math.toRadians(-45))
                     .waitSeconds(1)
 
                 //Hang specimen
-//                    .stopAndAdd(new WaitForLift())
-//                    .stopAndAdd(new SendLiftTo(770))
-//                    .stopAndAdd(new WaitForLift())
-//                    .stopAndAdd(new OpenClaw())
+//                  .stopAndAdd(new WaitForLift())
+//                  .stopAndAdd(new SendLiftTo(770))
+//                  .stopAndAdd(new WaitForLift())
+//                  .stopAndAdd(new OpenClaw())
 
                 // move lift down and back up
 //                  .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
