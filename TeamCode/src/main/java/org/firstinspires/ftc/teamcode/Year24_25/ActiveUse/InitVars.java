@@ -14,6 +14,7 @@ public class InitVars {
 		public static final int HANG_PRESET = 1900;
 		public static final int VIPER_HOME = 10;
 		public static final int SPECIMEN_PRESET = 1360;
+		public static final int SPECIMEN_SNAP_PRESET = 700;
 		
 	//Preset positions for elbow and claw servos -CS
 		public static final double ELBOW_AUTO_START = 0.8;

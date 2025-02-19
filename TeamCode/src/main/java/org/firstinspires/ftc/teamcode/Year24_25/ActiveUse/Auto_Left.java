@@ -13,7 +13,9 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 @Autonomous(name="Blue Alliance - Left Side Autonomous")
 public class Auto_Left extends LinearOpMode {
     AutoMethods am;
-    private double elbowWait = 0.75;
+    private final double elbowWait = 0.75;
+    private final double specimenRungY = 39.5;
+    private final Pose2d basketPose = new Pose2d(50, 49.5, Math.toRadians(49));
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -43,11 +45,11 @@ public class Auto_Left extends LinearOpMode {
                     .stopAndAdd(am.new SendLiftTo(1470))
 
                 // move to be in front of sub and wait for lift to raise
-                    .lineToY(41) // 9, 42
+                    .lineToY(specimenRungY) // 9, 42
                     .stopAndAdd(am.new WaitForLift())
 
                 // place specimen on rung
-                    .stopAndAdd(am.new SendLiftTo(770))
+                    .stopAndAdd(am.new SendLiftTo(InitVars.SPECIMEN_SNAP_PRESET))
                     .stopAndAdd(am.new WaitForLift())
                     .stopAndAdd(am.new OpenClaw())
 
@@ -59,7 +61,7 @@ public class Auto_Left extends LinearOpMode {
                     .splineToConstantHeading(new Vector2d(48, 52.5), Math.toRadians(90)) // y was 52
                     .stopAndAdd(am.new LowerElbow())
                     .waitSeconds(elbowWait)
-                    .splineToConstantHeading(new Vector2d(48, 46), Math.toRadians(90)) // y was 48
+                    .splineToConstantHeading(new Vector2d(48, 45.5), Math.toRadians(90)) // y was 48
 
                 // move lift down, close claw on sample, and wait for servo to be done
                     .stopAndAdd(am.new SendLiftTo(InitVars.VIPER_HOME))
@@ -72,7 +74,7 @@ public class Auto_Left extends LinearOpMode {
                     .waitSeconds(elbowWait)
 
                 // turn and face basket and wait for lift to rise
-                    .splineToLinearHeading(new Pose2d(49, 49, Math.toRadians(49)), Math.toRadians(-135)) //49, 49, 45deg
+                    .splineToLinearHeading(basketPose, Math.toRadians(-135)) //49, 49, 45deg
                     .stopAndAdd(am.new SendLiftTo(InitVars.TOP_PRESET))
                     .stopAndAdd(am.new WaitForLift())
 
@@ -86,7 +88,7 @@ public class Auto_Left extends LinearOpMode {
                     .splineToLinearHeading(new Pose2d(58, 52.5, Math.toRadians(-90)), Math.toRadians(-135)) // y was 52
                     .stopAndAdd(am.new LowerElbow())
                     .waitSeconds(elbowWait)
-                    .splineToConstantHeading(new Vector2d(58, 46), Math.toRadians(90))
+                    .splineToConstantHeading(new Vector2d(58, 45.5), Math.toRadians(90))
 
                 // move lift down, close claw on sample, and wait for servo to be done
                     .stopAndAdd(am.new SendLiftTo(InitVars.VIPER_HOME))
@@ -100,7 +102,7 @@ public class Auto_Left extends LinearOpMode {
 
 
                 // turn and face basket and wait for lift to rise
-                    .splineToLinearHeading(new Pose2d(49, 49, Math.toRadians(47)), Math.toRadians(-135)) //49, 49
+                    .splineToLinearHeading(basketPose, Math.toRadians(-135)) //49, 49
                     .stopAndAdd(am.new SendLiftTo(InitVars.TOP_PRESET))
                     .stopAndAdd(am.new WaitForLift())
 

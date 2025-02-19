@@ -37,6 +37,11 @@ public class AutoMethods extends OpMethods{
 		}
 	}
 
+	public class RaiseElbowToWall implements InstantFunction{
+		@Override
+		public void run(){raiseElbowToWall();}
+	}
+
 	public class LowerElbow implements InstantFunction{
 		@Override
 		public void run(){
@@ -79,7 +84,7 @@ public class AutoMethods extends OpMethods{
 	// var for storing Ticks -> CM conversion
 		static final double	TICKS_PER_CM = 1.17742528;
 		static final int driveErrorMargin = 3;
-		static final int liftErrorMargin = 10;
+		static final int liftErrorMargin = 30;
 	
 	public AutoMethods(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode op){
 		super(hardwareMap, telemetry);
@@ -261,6 +266,9 @@ public class AutoMethods extends OpMethods{
 		public void raiseElbow(){
 			sElbow0.setPosition(InitVars.ELBOW_UP);
 		}
+
+	//
+		public void raiseElbowToWall(){sElbow0.setPosition(0.3);}
 		
 	// raises elbow to 90 degree rotation (arm faces upwards)
 		public void lowerElbow(){
