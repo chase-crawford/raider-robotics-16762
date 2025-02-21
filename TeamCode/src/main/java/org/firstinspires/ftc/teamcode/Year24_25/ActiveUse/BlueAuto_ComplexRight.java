@@ -77,7 +77,7 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
             am.initServos();
 
         // set initial position on field
-            Pose2d beginPose = new Pose2d(9, 63, Math.toRadians(-90));
+            Pose2d beginPose = new Pose2d(-9, 63, Math.toRadians(-90));
 
         // setup RoadRunner pinpoint driving to make paths
             MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
@@ -97,7 +97,7 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                     .stopAndAdd(new SendLiftTo(1470))
 
                 // move to be in front of sub and wait for lift to raise
-                    .lineToY(41)
+                    .lineToY(40)
                     .stopAndAdd(new WaitForLift())
 
                 // place specimen on rung
@@ -108,92 +108,87 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                 // move lift down and back up
                     .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
                     .lineToY(48)
-                    .waitSeconds(1)
+                    //.waitSeconds(2)
 
                 //Move infront of first sample to push into obsv. zone
-                    .lineToY(-42)
-                    .lineToX(-28)
-                    .splineToConstantHeading(new Vector2d(-45, 10), Math.PI)
-                    .lineToX(-46)
-                    .lineToY(10)
-                    .waitSeconds(0.5)
+                    .strafeTo(new Vector2d(-26, 48))
+                    .splineToConstantHeading(new Vector2d(-46, 9), Math.PI)
+                    //.strafeTo(new Vector2d(-46, 9))
+                    //.waitSeconds(0.5)
 
-                /*Push sample into obsv. zone
-                    .lineToX(-46)
-                    .lineToY(60)
+                //Push sample into obsv. zone
+                    .strafeTo(new Vector2d(-46, 58))
+                    //.waitSeconds(0.5)
 
-                //Move infront of the second sample to push into obsv. zone
+                //Cutting this to save time
+                /*Move infront of the second sample to push into obsv. zone
                     .lineToY(10)
-                    .lineToX(-58)
-                    .lineToY(60)
-                    .waitSeconds(0.5)
+                    .strafeTo(new Vector2d(-55, 10))
+                    .strafeTo(new Vector2d(-55, 58))
+                    .waitSeconds(0.5)*/
 
                 //Spin to grab specimen off wall
-                    .lineToY(58)
-                    .turn(Math.toRadians(180))
-                    .lineToX(-48)
-                    .lineToY(60)
-                    .waitSeconds(1)
+                    .strafeTo(new Vector2d(-46, 55))
+                    .turn(Math.toRadians(185))  //not perpendicular w wall @ 180 degrees
 
-                //Move back to rung
-//                  .stopAndAdd(new SpecimenRaiseElbow())
+                //Move back to rung and prepare elbow
+                    .stopAndAdd(new SpecimenRaiseElbow())
+                    .lineToY(50)
                     .waitSeconds(ELBOW_WAIT)
-                    .lineToY(48)
-//                  .stopAndAdd(new CloseClaw())
-                    .waitSeconds(0.5)
-//                  .stopAndAdd(new RaiseElbow())
-                    .waitSeconds(ELBOW_WAIT)
-                    .lineToX(-9)
-                    .lineToY(51)
-//                   .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
-                    .lineToX(-6)
-                    .lineToY(41)
-                    .waitSeconds(1)
+
+                    .stopAndAdd(new CloseClaw())
+                    //.waitSeconds(0.5)
+                    .stopAndAdd(new RaiseElbow())
+
+                    .splineToLinearHeading(new Pose2d(-9, 40, Math.toRadians(-90)), Math.toRadians(45)) //
+                    .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
 
                 //Hang specimen
-//                  .stopAndAdd(new WaitForLift())
-//                  .stopAndAdd(new SendLiftTo(770))
-//                  .stopAndAdd(new WaitForLift())
-//                  .stopAndAdd(new OpenClaw())
+                    .stopAndAdd(new WaitForLift())
+                    .stopAndAdd(new SendLiftTo(770))
+                    .stopAndAdd(new WaitForLift())
+                    .stopAndAdd(new WaitForLift())
+                    .stopAndAdd(new OpenClaw())
 
                 // move lift down and back up
-//                  .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
-                    .lineToY(48)
-                    .waitSeconds(1)
+                    .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+                    //.lineToY(48)
+                    //.waitSeconds(1)
 
-                //Grab first specimen from wall
+                //Grab second specimen from wall
                     .turn(Math.toRadians(180))
-                    .lineToX(-48)
-//                  .stopAndAdd(new SpecimenRaiseElbow())
+                    .strafeTo(new Vector2d(-48, 48))
                     .waitSeconds(ELBOW_WAIT)
-                    .lineToY(51)
-//                  .stopAndAdd(new CloseClaw())
-                    .waitSeconds(0.5)
+                    .splineToLinearHeading(new Pose2d(-9, 48, Math.toRadians(-90)), Math.toRadians(45)) //
+                    .lineToY(55)
 
                 //Move back to rung
-//                  .stopAndAdd(new RaiseElbow())
-                    .waitSeconds(ELBOW_WAIT)
-                    .lineToX(-9)
-//                  .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
-                    .lineToX(-3)
-                    .lineToY(41)
+                  .stopAndAdd(new RaiseElbow())
+                    //.waitSeconds(ELBOW_WAIT)
+                    .splineToLinearHeading(new Pose2d(-9, 40, Math.toRadians(-90)), Math.toRadians(45)) //
+                    //.strafeTo(new Vector2d(-9, 51))
+                  .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
+//                  .strafeTo(new Vector2d(-3, 51))
+//                  .strafeTo(new Vector2d(-3 ,41))
                     .waitSeconds(1)
 
                 //Hang specimen
-//                    .stopAndAdd(new WaitForLift())
-//                    .stopAndAdd(new SendLiftTo(770))
-//                    .stopAndAdd(new WaitForLift())
-//                    .stopAndAdd(new OpenClaw())
+                    .stopAndAdd(new WaitForLift())
+                    .stopAndAdd(new SendLiftTo(770))
+                    .stopAndAdd(new WaitForLift())
+                    .stopAndAdd(new OpenClaw())
 
-                //End at lv 1 ascent
-                    .lineToX(-46)
-                    .lineToY(43)
+                /*End at lv 1 ascent
+                    .strafeTo(new Vector2d(-46, 48))
+                    //.lineToY(43)
                     .splineToLinearHeading(new Pose2d(-34, 5, Math.toRadians(0)), Math.PI)
-                    .lineToX(-25)
+                    .strafeTo(new Vector2d(-25, 43))
                     .lineToY(12)
 
-                //End auto path and build*/
+                //End auto path and build   */
                     .build();
+
+        //http://192.168.43.1:8080/dash
 
         Actions.runBlocking(new SequentialAction(complexRightPathBlue));
     }

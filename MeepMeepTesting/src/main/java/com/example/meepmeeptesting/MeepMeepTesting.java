@@ -28,9 +28,12 @@ public class MeepMeepTesting {
                         // move lift down and back up
 
                         //Move infront of first sample to push into obsv. zone
-                            .lineTo(new Vector2d(-28, 42))
-                            .splineToConstantHeading(new Vector2d(-45, 10), Math.PI)
-                            .lineTo(new Vector2d(-46, 10))
+//                        .lineTo(new Vector2d(-28, 42))
+//                        .splineToConstantHeading(new Vector2d(-45, 10), Math.PI)
+//                        .lineTo(new Vector2d(-46, 10))
+                        .lineTo(new Vector2d(-24, 42))
+                        .splineToConstantHeading(new Vector2d(-48, 9), Math.PI)
+                        //.lineTo(new Vector2d(-46, 10))
 
                         //Push sample into obsv. zone
                             .lineTo(new Vector2d(-46,60))

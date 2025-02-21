@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
     submersible to the driver, coach, and human player. -CS
 
  */
-@Autonomous(name="Blue Alliance - Left Side Autonomous")
+@Autonomous(name="Blue Alliance - Simple Right Side Autonomous")
 public class BlueAuto_SimpleRight extends LinearOpMode {
 AutoMethods am;
     private class OpenClaw implements InstantFunction{
@@ -109,14 +109,14 @@ AutoMethods am;
                     .lineToY(48)
 
                 //Strafe right, move up, and strafe right again to be infront of first sample on the ground
-                    .lineToX(-34)
+                    //.lineToX(-34)
                     .lineToY(19)
-                    .lineToX(-50)
+                    //.lineToX(-50)
 
                 //Push first sample back to obsv. zone, drive back up, and strafe infront of second sample, push it to obsv. zone
                     .lineToY(62)
                     .lineToY(19)
-                    .lineToX(60)
+                    //.lineToX(60)
                     .lineToY(62)
 
                 //Move up to and pivot to park at lv. 1 ascent
@@ -124,7 +124,7 @@ AutoMethods am;
                     .turn(Math.toRadians(-90))
                     .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
                     .stopAndAdd(new WaitForLift())
-                    .lineToX(-24)
+                    //.lineToX(-24)
 
                 //End auto path and build
                     .build();
