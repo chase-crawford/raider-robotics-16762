@@ -68,7 +68,7 @@ public class Main_OneDriver extends OpMode{
 			limitSpeed();
 		
 		// Driving program from BasicDriving_Chase begins  -CS
-			double vy = -gamepad1.left_stick_y * (currSpeed*0.8);				//vy = velocity left
+			double vy = -gamepad1.left_stick_y * (currSpeed*0.8);		//vy = velocity left
 			double vx = gamepad1.left_stick_x * currSpeed;				//vx = veloctiy right
 			double w = gamepad1.right_stick_x * currRotSpeed;			//w = rotation velocity
 
@@ -107,7 +107,10 @@ public class Main_OneDriver extends OpMode{
 
 		//Get input for sElbow0 and sClaw1 -CS
 			if (gamepad1.right_bumper && !prevPad.right_bumper){
-				MM.toggleElbow();
+				if(useSpecimens)
+					MM.toggleElbowSpecimen();
+				else
+					MM.toggleElbow();
 			}
    
 			if (gamepad1.left_bumper && !prevPad.left_bumper){
