@@ -14,6 +14,7 @@ public class InitVars {
 		public static final int HANG_PRESET = 1900;
 		public static final int VIPER_HOME = 10;
 		public static final int SPECIMEN_PRESET = 1360;
+		public static final int SPECIMEN_SNAP_PRESET = 700;
 		
 	//Preset positions for elbow and claw servos -CS
 		public static final double ELBOW_AUTO_START = 0.8;
@@ -30,7 +31,7 @@ public class InitVars {
 		
 	//Initial speed of lift and drive motors -CS
 		public static double liftSpeed = .85;
-		public static double altLiftSpeed = 0.95;
+		public static double altLiftSpeed = 1.00;
 		
 		public static double driveSpeed = .7;			//typically .8
 		public static double fineDriveSpeed = .45;		//typically .25

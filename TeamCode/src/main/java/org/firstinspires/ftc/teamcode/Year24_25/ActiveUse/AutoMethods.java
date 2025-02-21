@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Year24_25.ActiveUse;
 
+import com.acmerobotics.roadrunner.InstantFunction;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -8,21 +9,82 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class AutoMethods extends OpMethods{
+
+	/*
+    These next few InstantFunction classes are used as a way for us to
+    pass methods from AutoMethods into the Trajectory/RR Path.
+    For now, they are mainly used to move the lift and servos around mid path.
+     */
+
+	public class OpenClaw implements InstantFunction {
+		@Override
+		public void run(){
+			openClaw();
+		}
+	}
+
+	public class CloseClaw implements InstantFunction{
+		@Override
+		public void run(){
+			closeClaw();
+		}
+	}
+
+	public class RaiseElbow implements InstantFunction{
+		@Override
+		public void run(){
+			raiseElbow();
+		}
+	}
+
+	public class RaiseElbowToWall implements InstantFunction{
+		@Override
+		public void run(){raiseElbowToWall();}
+	}
+
+	public class LowerElbow implements InstantFunction{
+		@Override
+		public void run(){
+			lowerElbow();
+		}
+	}
+
+	public class SendLiftTo implements InstantFunction{
+		int targetPos;
+
+		public SendLiftTo(int targetPos){
+			this.targetPos = targetPos;
+		}
+
+		@Override
+		public void run(){
+			sendLiftTo(targetPos, InitVars.altLiftSpeed);
+		}
+	}
+
+	public class WaitForLift implements InstantFunction{
+		@Override
+		public void run(){
+			waitForLift();
+		}
+	}
 	
 	// var to check if opMode is active
 		private LinearOpMode op;
 		
-	//Create object to accesss InitVars class -CS
+	//Create object to access InitVars class -CS
 		private InitVars IV = new InitVars();
 		
 	// Create Telemetry output items
 		private Telemetry.Item posTelem;
 		private Telemetry.Item targetTelem;
+		private Telemetry.Item liftPosTelem;
+		private Telemetry.Item liftTargetTelem;
 	
 	// var for storing Ticks -> CM conversion
 		static final double	TICKS_PER_CM = 1.17742528;
 		static final int driveErrorMargin = 3;
-		static final int liftErrorMargin = 5;
+		static final int liftErrorMargin = 30;
 	
 	public AutoMethods(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode op){
 		super(hardwareMap, telemetry);
@@ -42,9 +104,6 @@ public class AutoMethods extends OpMethods{
 		
 		// call initDriveMotors from OpMethods parent class
 			super.initDriveMotors();
-			
-		posTelem = telemetry.addData("Current Position", getCurrentPositionTelem());
-		targetTelem = telemetry.addData("Target Position", getTargetPositionTelem());
 		
 		// reset encoders and set mode to use encoders
 		// also set up PIDF coefficients to make it faster/pinpoint
@@ -53,6 +112,9 @@ public class AutoMethods extends OpMethods{
 				motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 				motor.setVelocityPIDFCoefficients(InitVars.p, InitVars.i, InitVars.d, InitVars.f);
 			}
+
+		posTelem = telemetry.addData("Current Position", getCurrentPositionTelem());
+		targetTelem = telemetry.addData("Target Position", getTargetPositionTelem());
 	}
 	
 	@Override
@@ -63,6 +125,9 @@ public class AutoMethods extends OpMethods{
 			motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 			motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		}
+
+		liftPosTelem = telemetry.addData("Lift Current Position", getLiftCurrentPosition());
+		liftTargetTelem = telemetry.addData("Lift TargetPosition", getLiftTargetPosition());
 	}
 
 	/* this method will act as the main wiring behind all 
@@ -158,24 +223,33 @@ public class AutoMethods extends OpMethods{
 		
 	// wait for lift to get to its target position
 		public void waitForLift(){
-			// get target pos
 			int target = getLiftTargetPosition();
-			
+			int current = getLiftCurrentPosition();
+
 			// wait until current position = target position
-			while (Math.abs(target - getLiftCurrentPosition()) > liftErrorMargin){
+			while (Math.abs(getLiftTargetPosition() - getLiftCurrentPosition()) > liftErrorMargin){
 				// telemetry for target and current position
 				/*telemetry.addData("Moving Lift to", target);
 				telemetry.addData("Current Position", lift[0].getCurrentPosition());
 				telemetry.update();*/
 
-				if (motors[0] != null) {
-					posTelem.setValue(getCurrentPositionTelem());
-					targetTelem.setValue(getTargetPositionTelem());
-					telemetry.update();
-				}
+			liftPosTelem.setValue(current);
+			liftTargetTelem.setValue(target);
+			telemetry.update();
+
+			target = getLiftTargetPosition();
+			current = getLiftCurrentPosition();
 				
-				op.idle();
+			op.idle();
 			}
+		}
+
+		public boolean motorsBusy(){
+			for (DcMotor motor : motors)
+				if (motor.isBusy())
+					return true;
+
+			return false;
 		}
 		
 	// opens the claw up to iv.CLAW_OPEN position
