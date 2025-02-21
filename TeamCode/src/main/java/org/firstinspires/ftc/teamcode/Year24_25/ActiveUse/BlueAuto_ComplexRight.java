@@ -101,24 +101,20 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                     .stopAndAdd(new WaitForLift())
 
                 // place specimen on rung
-                    .stopAndAdd(new SendLiftTo(770))
+                    .stopAndAdd(new SendLiftTo(700))
                     .stopAndAdd(new WaitForLift())
+                    .waitSeconds(0.5)
                     .stopAndAdd(new OpenClaw())
 
                 // move lift down and back up
                     .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
-                    .lineToY(48)
-                    //.waitSeconds(2)
 
                 //Move infront of first sample to push into obsv. zone
                     .strafeTo(new Vector2d(-26, 48))
                     .splineToConstantHeading(new Vector2d(-46, 9), Math.PI)
-                    //.strafeTo(new Vector2d(-46, 9))
-                    //.waitSeconds(0.5)
 
                 //Push sample into obsv. zone
                     .strafeTo(new Vector2d(-46, 58))
-                    //.waitSeconds(0.5)
 
                 //Cutting this to save time
                 /*Move infront of the second sample to push into obsv. zone
@@ -127,63 +123,66 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                     .strafeTo(new Vector2d(-55, 58))
                     .waitSeconds(0.5)*/
 
-                //Spin to grab specimen off wall
-                    .strafeTo(new Vector2d(-46, 55))
-                    .turn(Math.toRadians(185))  //not perpendicular w wall @ 180 degrees
+                //Raise lift and lower arm
+                    .stopAndAdd(new SendLiftTo(1555))
+                    .stopAndAdd(new LowerElbow())
 
-                //Move back to rung and prepare elbow
-                    .stopAndAdd(new SpecimenRaiseElbow())
-                    .lineToY(50)
-                    .waitSeconds(ELBOW_WAIT)
+                //Spin to grab specimen
+                    .strafeTo(new Vector2d(-46, 51))
+                    .turn(Math.toRadians(180))
 
+                //Grab specimen off wall
+                    .waitSeconds(1)
                     .stopAndAdd(new CloseClaw())
-                    //.waitSeconds(0.5)
+                    .waitSeconds(0.8)
                     .stopAndAdd(new RaiseElbow())
 
-                    .splineToLinearHeading(new Pose2d(-9, 40, Math.toRadians(-90)), Math.toRadians(45)) //
+                //Move back to submersible and raise lift
                     .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
+                    .splineToLinearHeading(new Pose2d(-9, 40, Math.toRadians(-90)), Math.toRadians(45)) //
+                    .strafeTo(new Vector2d(-6, 40))
 
                 //Hang specimen
-                    .stopAndAdd(new WaitForLift())
-                    .stopAndAdd(new SendLiftTo(770))
-                    .stopAndAdd(new WaitForLift())
+                    .stopAndAdd(new SendLiftTo(700))
+                    .waitSeconds(ELBOW_WAIT)
                     .stopAndAdd(new WaitForLift())
                     .stopAndAdd(new OpenClaw())
 
                 // move lift down and back up
                     .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
-                    //.lineToY(48)
-                    //.waitSeconds(1)
+                    .waitSeconds(0.5)
+                    .lineToY(48)
 
-                //Grab second specimen from wall
-                    .turn(Math.toRadians(180))
-                    .strafeTo(new Vector2d(-48, 48))
+                /*Grab second specimen from wall
+                    //.turn(Math.toRadians(180))
+                    //.strafeTo(new Vector2d(-48, 48))
+                    .splineToLinearHeading(new Pose2d(-46, 55, Math.toRadians(-90)), Math.toRadians(45)) //
+                    .stopAndAdd(new SpecimenRaiseElbow())
                     .waitSeconds(ELBOW_WAIT)
-                    .splineToLinearHeading(new Pose2d(-9, 48, Math.toRadians(-90)), Math.toRadians(45)) //
-                    .lineToY(55)
 
-                //Move back to rung
-                  .stopAndAdd(new RaiseElbow())
-                    //.waitSeconds(ELBOW_WAIT)
+                    .stopAndAdd(new CloseClaw())
+                    .waitSeconds(ELBOW_WAIT)
+                    .stopAndAdd(new RaiseElbow())
+
+                //Move back to submersible rung
+                    .stopAndAdd(new RaiseElbow())
                     .splineToLinearHeading(new Pose2d(-9, 40, Math.toRadians(-90)), Math.toRadians(45)) //
-                    //.strafeTo(new Vector2d(-9, 51))
-                  .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
-//                  .strafeTo(new Vector2d(-3, 51))
-//                  .strafeTo(new Vector2d(-3 ,41))
-                    .waitSeconds(1)
+                    .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
+                    .stopAndAdd(new WaitForLift())
 
                 //Hang specimen
                     .stopAndAdd(new WaitForLift())
-                    .stopAndAdd(new SendLiftTo(770))
+                    .stopAndAdd(new SendLiftTo(700))
+                    .waitSeconds(ELBOW_WAIT)
                     .stopAndAdd(new WaitForLift())
-                    .stopAndAdd(new OpenClaw())
+                    .stopAndAdd(new OpenClaw())*/
 
-                /*End at lv 1 ascent
-                    .strafeTo(new Vector2d(-46, 48))
-                    //.lineToY(43)
-                    .splineToLinearHeading(new Pose2d(-34, 5, Math.toRadians(0)), Math.PI)
+                //End parked at lv 1 ascent
+                    .strafeTo(new Vector2d(-34, 48))
+                    .turn(Math.toRadians(-90))
                     .strafeTo(new Vector2d(-25, 43))
-                    .lineToY(12)
+                    .strafeTo(new Vector2d(-25, 12))
+                    //.lineToY(12)
 
                 //End auto path and build   */
                     .build();
