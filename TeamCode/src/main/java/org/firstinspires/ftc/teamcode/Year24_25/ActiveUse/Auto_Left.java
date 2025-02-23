@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
-@Autonomous(name="Blue Alliance - Left Side Autonomous")
+@Autonomous(name="Auto_Left")
 public class Auto_Left extends LinearOpMode {
     AutoMethods am;
     private final double elbowWait = 0.75;

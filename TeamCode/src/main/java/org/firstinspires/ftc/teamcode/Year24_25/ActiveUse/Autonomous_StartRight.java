@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
-@Autonomous(name = "Autonomous_StartRight")
+//@Autonomous(name = "Autonomous_StartRight")
 public class Autonomous_StartRight extends LinearOpMode{
 	//Create object for InitVars class -CS
 		InitVars IV = new InitVars();

@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
     submersible to the driver, coach, and human player. -CS
 
  */
-@Autonomous(name="Blue Alliance - Simple Right Side Autonomous")
+//@Autonomous(name="Blue Alliance - Simple Right Side Autonomous")
 public class BlueAuto_SimpleRight extends LinearOpMode {
 AutoMethods am;
     private class OpenClaw implements InstantFunction{

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name="Hardware Testing")
+//@TeleOp(name="Hardware Testing")
 
 public class HardwareTesting extends OpMode {
 		//Declare variables and get motor objects

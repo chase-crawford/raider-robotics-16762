@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 	/* All driving controls on gamepad1
 	   All lift, claw, and elbow controls on gamepad2 -CS	*/
 	   
-@TeleOp(name="Main_TeleOp - Two Drivers")
+//@TeleOp(name="Main_TeleOp - Two Drivers")
 
 public class Main_TwoDrivers extends OpMode{
 	//Create object for iv class

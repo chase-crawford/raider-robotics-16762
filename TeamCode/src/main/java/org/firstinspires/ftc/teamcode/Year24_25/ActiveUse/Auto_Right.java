@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 @Autonomous(name="Auto_Right")
-public class BlueAuto_ComplexRight extends LinearOpMode {
+public class Auto_Right extends LinearOpMode {
     AutoMethods am;
     final double ELBOW_WAIT = .75;
 

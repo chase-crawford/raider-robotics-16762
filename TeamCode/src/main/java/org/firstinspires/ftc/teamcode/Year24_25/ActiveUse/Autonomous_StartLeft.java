@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Year24_25.ActiveUse;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Autonomous_StartLeft")
+//@Autonomous(name = "Autonomous_StartLeft")
 public class Autonomous_StartLeft extends LinearOpMode{
 	//Create object for InitVars class -CS
 		InitVars IV = new InitVars();
