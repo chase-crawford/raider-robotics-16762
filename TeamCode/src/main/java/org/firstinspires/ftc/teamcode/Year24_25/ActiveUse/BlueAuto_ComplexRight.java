@@ -156,7 +156,7 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                 //Get back to wall for second specimen - TEST SPINNY!!
                     //.turn(Math.toRadians(180))
                     //.strafeTo(new Vector2d(-48, 48))
-                    .splineToLinearHeading(new Pose2d(-46, 55, Math.toRadians(-90)), Math.toRadians(45)) //
+                    .splineToLinearHeading(new Pose2d(-46, 55, Math.toRadians(90)), Math.toRadians(45)) //
                     .stopAndAdd(new SpecimenRaiseElbow())
                     .waitSeconds(ELBOW_WAIT)
 
