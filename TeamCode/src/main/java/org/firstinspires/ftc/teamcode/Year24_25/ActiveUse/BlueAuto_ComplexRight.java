@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
-@Autonomous(name="Blue Alliance - Complex Right Side Autonomous")
+@Autonomous(name="Auto_Right")
 public class BlueAuto_ComplexRight extends LinearOpMode {
     AutoMethods am;
     final double ELBOW_WAIT = .75;
@@ -153,36 +153,39 @@ public class BlueAuto_ComplexRight extends LinearOpMode {
                     .waitSeconds(0.5)
                     .lineToY(48)
 
-                /*Grab second specimen from wall
+                //Get back to wall for second specimen - TEST SPINNY!!
                     //.turn(Math.toRadians(180))
                     //.strafeTo(new Vector2d(-48, 48))
                     .splineToLinearHeading(new Pose2d(-46, 55, Math.toRadians(-90)), Math.toRadians(45)) //
                     .stopAndAdd(new SpecimenRaiseElbow())
                     .waitSeconds(ELBOW_WAIT)
 
+                //Grab specimen from wall
                     .stopAndAdd(new CloseClaw())
                     .waitSeconds(ELBOW_WAIT)
                     .stopAndAdd(new RaiseElbow())
 
-                //Move back to submersible rung
-                    .stopAndAdd(new RaiseElbow())
-                    .splineToLinearHeading(new Pose2d(-9, 40, Math.toRadians(-90)), Math.toRadians(45)) //
+                //Move back to submersible and raise lift
                     .stopAndAdd(new SendLiftTo(InitVars.MID_PRESET))
-                    .stopAndAdd(new WaitForLift())
+                    .splineToLinearHeading(new Pose2d(-9, 40, Math.toRadians(-90)), Math.toRadians(45)) //
+                    .strafeTo(new Vector2d(-6, 40))
 
                 //Hang specimen
-                    .stopAndAdd(new WaitForLift())
                     .stopAndAdd(new SendLiftTo(700))
                     .waitSeconds(ELBOW_WAIT)
                     .stopAndAdd(new WaitForLift())
-                    .stopAndAdd(new OpenClaw())*/
+                    .stopAndAdd(new OpenClaw())
 
-                //End parked at lv 1 ascent
+                // move lift down and back up
+                    .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
+                    .waitSeconds(0.5)
+                    .lineToY(48)
+
+                //End parked at lv 1 ascent*/
                     .strafeTo(new Vector2d(-34, 48))
                     .turn(Math.toRadians(-90))
                     .strafeTo(new Vector2d(-25, 43))
                     .strafeTo(new Vector2d(-25, 12))
-                    //.lineToY(12)
 
                 //End auto path and build   */
                     .build();
