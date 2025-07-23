@@ -14,7 +14,8 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 public class Auto_Left extends LinearOpMode {
     AutoMethods am;
     private final double elbowWait = 0.75;
-    private final double specimenRungY = 39.5;
+    private final double specimenRungY = 39.5; // 39.5
+    private final double sampleGrabY = 45.75;
     private final Pose2d basketPose = new Pose2d(50, 49.5, Math.toRadians(49));
 
     @Override
@@ -61,7 +62,7 @@ public class Auto_Left extends LinearOpMode {
                     .splineToConstantHeading(new Vector2d(48, 52.5), Math.toRadians(90)) // y was 52
                     .stopAndAdd(am.new LowerElbow())
                     .waitSeconds(elbowWait)
-                    .splineToConstantHeading(new Vector2d(48, 45.5), Math.toRadians(90)) // y was 48
+                    .splineToConstantHeading(new Vector2d(48, sampleGrabY), Math.toRadians(90)) // y was 48
 
                 // move lift down, close claw on sample, and wait for servo to be done
                     .stopAndAdd(am.new SendLiftTo(InitVars.VIPER_HOME))
@@ -88,7 +89,7 @@ public class Auto_Left extends LinearOpMode {
                     .splineToLinearHeading(new Pose2d(58, 52.5, Math.toRadians(-90)), Math.toRadians(-135)) // y was 52
                     .stopAndAdd(am.new LowerElbow())
                     .waitSeconds(elbowWait)
-                    .splineToConstantHeading(new Vector2d(58, 45.5), Math.toRadians(90))
+                    .splineToConstantHeading(new Vector2d(58, sampleGrabY), Math.toRadians(90))
 
                 // move lift down, close claw on sample, and wait for servo to be done
                     .stopAndAdd(am.new SendLiftTo(InitVars.VIPER_HOME))

@@ -10,7 +10,7 @@ public class InitVars {
 		public static final int TOP_PRESET = 4000;
 		public static final int MID_PRESET = 1700;
 		//public static final int BOTTOM_PRESET = 250; it keep hitting on the floor specimens ;-; - CC
-		public static final int BOTTOM_PRESET = 300;
+		public static final int BOTTOM_PRESET = 325;
 		public static final int HANG_PRESET = 1900;
 		public static final int VIPER_HOME = 10;
 		public static final int SPECIMEN_PRESET = 1360;

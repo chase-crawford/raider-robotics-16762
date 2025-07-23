@@ -132,9 +132,9 @@ public class Auto_Right extends LinearOpMode {
                     .turn(Math.toRadians(180))
 
                 //Grab specimen off wall
-                    .waitSeconds(1)
+                    //.waitSeconds(1)
                     .stopAndAdd(new CloseClaw())
-                    .waitSeconds(0.8)
+                    .waitSeconds(ELBOW_WAIT)
                     .stopAndAdd(new RaiseElbow())
 
                 //Move back to submersible and raise lift
@@ -144,21 +144,19 @@ public class Auto_Right extends LinearOpMode {
 
                 //Hang specimen
                     .stopAndAdd(new SendLiftTo(700))
-                    .waitSeconds(ELBOW_WAIT)
+                    //.waitSeconds(ELBOW_WAIT)
                     .stopAndAdd(new WaitForLift())
                     .stopAndAdd(new OpenClaw())
 
                 // move lift down and back up
                     .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
-                    .waitSeconds(0.5)
+                    //.waitSeconds(0.5)
                     .lineToY(48)
 
-                //Get back to wall for second specimen - TEST SPINNY!!
-                    //.turn(Math.toRadians(180))
-                    //.strafeTo(new Vector2d(-48, 48))
-                    .splineToLinearHeading(new Pose2d(-46, 55, Math.toRadians(90)), Math.toRadians(45)) //
-                    .stopAndAdd(new SpecimenRaiseElbow())
-                    .waitSeconds(ELBOW_WAIT)
+                //Get back to wall while raising lift for second specimen
+                    .stopAndAdd(new SendLiftTo(1555))
+                    .stopAndAdd(new LowerElbow())
+                    .splineToLinearHeading(new Pose2d(-46, 51, Math.toRadians(90)), Math.toRadians(45)) //
 
                 //Grab specimen from wall
                     .stopAndAdd(new CloseClaw())
@@ -172,16 +170,19 @@ public class Auto_Right extends LinearOpMode {
 
                 //Hang specimen
                     .stopAndAdd(new SendLiftTo(700))
-                    .waitSeconds(ELBOW_WAIT)
+                    //.waitSeconds(ELBOW_WAIT)
                     .stopAndAdd(new WaitForLift())
                     .stopAndAdd(new OpenClaw())
 
                 // move lift down and back up
                     .stopAndAdd(new SendLiftTo(InitVars.VIPER_HOME))
-                    .waitSeconds(0.5)
+                    //.waitSeconds(0.5)
+                    //.lineToY(48)
+
+                //End parked infront of submersible rungs
                     .lineToY(48)
 
-                //End parked at lv 1 ascent*/
+                /*End parked at lv 1 ascent
                     .strafeTo(new Vector2d(-34, 48))
                     .turn(Math.toRadians(-90))
                     .strafeTo(new Vector2d(-25, 43))

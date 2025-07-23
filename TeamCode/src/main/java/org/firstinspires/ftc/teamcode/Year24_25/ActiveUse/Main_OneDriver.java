@@ -107,10 +107,12 @@ public class Main_OneDriver extends OpMode{
 
 		//Get input for sElbow0 and sClaw1 -CS
 			if (gamepad1.right_bumper && !prevPad.right_bumper){
-				if(useSpecimens)
+				/*if(useSpecimens)
 					MM.toggleElbowSpecimen();
 				else
-					MM.toggleElbow();
+					MM.toggleElbow();*/
+
+				MM.toggleElbow();
 			}
    
 			if (gamepad1.left_bumper && !prevPad.left_bumper){

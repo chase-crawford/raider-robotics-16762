@@ -180,6 +180,31 @@ public class OpMethods {
 		  motors[2].setPower(rr);
 		  motors[3].setPower(rl);
 		}
+
+	// opens the claw up to iv.CLAW_OPEN position
+	public void openClaw(){
+		sClaw1.setPosition(InitVars.CLAW_OPEN);
+	}
+
+	// closes claw to closeClawPos position
+	public void closeClaw(){
+		sClaw1.setPosition(InitVars.CLAW_CLOSE);
+	}
+
+	// raises elbow to 90 degree rotation (arm faces upwards)
+	public void raiseElbow(){
+		sElbow0.setPosition(InitVars.ELBOW_UP);
+	}
+
+	// Raise elbow to 45 degrees(?) rotation to grab from wall
+	public void raiseElbowToWall(){
+		sElbow0.setPosition(InitVars.ELBOW_GRAB_WALL);
+	}
+
+	// raises elbow to 90 degree rotation (arm faces upwards)
+	public void lowerElbow(){
+		sElbow0.setPosition(InitVars.ELBOW_GRAB);
+	}
 }
 
 

@@ -11,6 +11,7 @@ public class ManualMethods extends OpMethods{
 	
 	private boolean clawClosed, elbowDown;
 	private InitVars IV = new InitVars();
+	int n = 0;
 	
 	public ManualMethods(HardwareMap hardwareMap, Telemetry telemetry){
 		super(hardwareMap, telemetry);
@@ -65,20 +66,23 @@ public class ManualMethods extends OpMethods{
 		@return void
 	 */
 		public void toggleElbowSpecimen() {
-			int n = 0;
-
 			if(n == 0){
 				sElbow0.setPosition(IV.ELBOW_GRAB_WALL);
 				n++;
 			}
 
 			else if(n == 1){
-				sElbow0.setPosition(IV.ELBOW_UP);
+				sElbow0.setPosition(IV.ELBOW_GRAB);
+				n++;
+			}
+
+			else if(n == 2){
+				sElbow0.setPosition(IV.ELBOW_GRAB);
 				n++;
 			}
 
 			else{
-				sElbow0.setPosition(IV.ELBOW_GRAB);
+				sElbow0.setPosition(IV.ELBOW_UP);
 				n = 0;
 			}
 		}
@@ -185,6 +189,16 @@ public class ManualMethods extends OpMethods{
 			// Rotation
 				telemetry.addLine();
 				telemetry.addData("Rotation/Yaw", compass.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+		}
+
+	// sets claw to specific position
+		public void setClawPos(double clawPos){
+			sClaw1.setPosition(clawPos);
+		}
+
+	// returns current claw position
+		public double getClawPos(){
+			return sClaw1.getPosition();
 		}
 }
 	
